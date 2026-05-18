@@ -7,7 +7,13 @@
 |
 */
 import router from '@adonisjs/core/services/router'
-
-router.get('/', () => {
-  return { hello: 'world' }
-})
+import ToolsController from '#controllers/tools_controller'
+router
+  .group(() => {
+    router.get('/', [ToolsController, 'index'])
+    router.get(':id', [ToolsController, 'getSingle'])
+    router.post('/', [ToolsController, 'create'])
+    router.put('/:id', [ToolsController, 'update'])
+  })
+  .prefix('tools')
+  .prefix('api')
