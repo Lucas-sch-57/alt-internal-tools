@@ -1,7 +1,7 @@
 import { ToolService } from '#services/tool_service'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
-import { toolFiltersValidator } from '#validators/tool'
+import { createToolValidator, toolFiltersValidator } from '#validators/tool'
 import { buildFiltersApplied } from '../helpers/filters.ts'
 @inject()
 export default class ToolsController {
@@ -44,9 +44,17 @@ export default class ToolsController {
       ...(Object.keys(filters_applied).length && { filters_applied }),
     }
   }
-  
+
   async getSingle({ params }: HttpContext) {
     const id = params.id
     return await this.toolService.getSingleTool(id)
+  }
+
+  async create({ request }: HttpContext) {
+    const payload = await request.validateUsing(createToolValidator)
+    const tool = await this.toolService.createTool(payload)
+    return {
+      data: tool,
+    }
   }
 }

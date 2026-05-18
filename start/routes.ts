@@ -12,6 +12,7 @@ router
   .group(() => {
     router.get('/', [ToolsController, 'index'])
     router.get(':id', [ToolsController, 'getSingle'])
+    router.post('/', [ToolsController, 'create'])
   })
   .prefix('tools')
   .prefix('api')

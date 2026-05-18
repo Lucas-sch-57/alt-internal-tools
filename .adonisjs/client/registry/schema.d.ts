@@ -31,4 +31,16 @@ export interface Registry {
       errorResponse: unknown
     }
   }
+  'tools.create': {
+    methods: ["POST"]
+    pattern: '/api/tools'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
 }
