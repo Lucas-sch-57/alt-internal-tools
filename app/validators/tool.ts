@@ -11,5 +11,7 @@ export const toolFiltersValidator = vine.compile(
     category: vine.string().optional(),
     sort_by: vine.enum(['monthly_cost', 'name', 'created_at']).optional(),
     sort_order: vine.enum(['asc', 'desc']).optional(),
+    page: vine.number().min(1).optional(),
+    limit: vine.number().min(1).max(100).optional(),
   })
 )

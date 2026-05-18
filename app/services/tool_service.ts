@@ -5,6 +5,8 @@ export class ToolService {
   async getTools(filters: ToolFilters = {}) {
     const query = Tool.query().preload('category')
     const total = await this.getTotalTools()
+    const page = filters.page ?? 1
+    const limit = filters.limit ?? 20
 
     if (filters.department) {
       query.where('owner_department', filters.department)
@@ -25,12 +27,17 @@ export class ToolService {
       query.orderBy(filters.sort_by, filters.sort_order ?? 'asc')
     }
 
-    const tools = await query
-
+    const tools = await query.paginate(page, limit)
+    const meta = tools.getMeta()
     return {
-      tools: tools.map(this.formatTool),
+      tools: tools.all().map(this.formatTool.bind(this)),
       total: Number(total?.$extras.total ?? 0),
-      filtered: tools.length,
+      filtered: meta.total,
+      pagination: {
+        current_page: meta.currentPage,
+        last_page: meta.lastPage,
+        per_page: limit,
+      },
     }
   }
 
