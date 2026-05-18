@@ -14,9 +14,9 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: {}
-      response: unknown
-      errorResponse: unknown
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/tool').toolFiltersValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['index']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'tools.get_single': {
@@ -27,32 +27,32 @@ export interface Registry {
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['getSingle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['getSingle']>>>
     }
   }
   'tools.create': {
     methods: ["POST"]
     pattern: '/api/tools'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/tool').createToolValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
-      response: unknown
-      errorResponse: unknown
+      query: ExtractQuery<InferInput<(typeof import('#validators/tool').createToolValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['create']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'tools.update': {
     methods: ["PUT"]
     pattern: '/api/tools/:id'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/tool').updateToolValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: {}
-      response: unknown
-      errorResponse: unknown
+      query: ExtractQuery<InferInput<(typeof import('#validators/tool').updateToolValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
 }
