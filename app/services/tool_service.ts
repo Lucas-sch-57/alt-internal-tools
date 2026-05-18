@@ -2,7 +2,7 @@ import Tool from '#models/tool'
 import { DateTime } from 'luxon'
 import { ToolFilters } from '../types/tool.js'
 import { getAvgSessionsTime } from '../helpers/metrics.ts'
-import { CreateToolPayload } from '#validators/tool'
+import { CreateToolPayload, UpdateToolPayload } from '#validators/tool'
 
 export class ToolService {
   async getTools(filters: ToolFilters = {}) {
@@ -65,10 +65,21 @@ export class ToolService {
     await tool.refresh()
     await tool.load('category')
 
-    console.log(tool)
     return {
       ...this.formatTool(tool),
       updated_at: tool.updatedAt,
+    }
+  }
+
+  async updateTool(payload: UpdateToolPayload, id: number) {
+    const existingTool = await Tool.findOrFail(id)
+    existingTool.merge(payload)
+    await existingTool.save()
+    await existingTool.load('category')
+
+    return {
+      ...this.formatTool(existingTool),
+      updated_at: existingTool.updatedAt,
     }
   }
 

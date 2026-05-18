@@ -35,4 +35,22 @@ export const createToolValidator = vine.create({
   ]),
 })
 
+export const updateToolValidator = vine.create({
+  name: vine
+    .string()
+    .minLength(2)
+    .maxLength(100)
+    .unique({ table: 'tools', column: 'name' })
+    .optional(),
+  description: vine.string().optional(),
+  vendor: vine.string().minLength(1).maxLength(100).optional(),
+  website_url: vine.string().minLength(1).maxLength(255).optional(),
+  category_id: vine.number().min(1).exists({ table: 'categories', column: 'id' }).optional(),
+  monthly_cost: vine.number().positive().decimal([0, 2]).optional(),
+  owner_department: vine
+    .enum(['Engineering', 'Sales', 'Marketing', 'HR', 'Finance', 'Operations', 'Design'])
+    .optional(),
+  status: vine.enum(['active', 'deprecated', 'trial']),
+})
 export type CreateToolPayload = Infer<typeof createToolValidator>
+export type UpdateToolPayload = Infer<typeof updateToolValidator>

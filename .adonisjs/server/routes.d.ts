@@ -7,6 +7,7 @@ export type ScannedRoutes = {
     'tools.index': { paramsTuple?: []; params?: {} }
     'tools.get_single': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tools.create': { paramsTuple?: []; params?: {} }
+    'tools.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   GET: {
     'tools.index': { paramsTuple?: []; params?: {} }
@@ -18,6 +19,9 @@ export type ScannedRoutes = {
   }
   POST: {
     'tools.create': { paramsTuple?: []; params?: {} }
+  }
+  PUT: {
+    'tools.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

@@ -6,5 +6,6 @@ export interface ApiDefinition {
     index: typeof routes['tools.index']
     getSingle: typeof routes['tools.get_single']
     create: typeof routes['tools.create']
+    update: typeof routes['tools.update']
   }
 }

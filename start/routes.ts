@@ -13,6 +13,7 @@ router
     router.get('/', [ToolsController, 'index'])
     router.get(':id', [ToolsController, 'getSingle'])
     router.post('/', [ToolsController, 'create'])
+    router.put('/:id', [ToolsController, 'update'])
   })
   .prefix('tools')
   .prefix('api')
