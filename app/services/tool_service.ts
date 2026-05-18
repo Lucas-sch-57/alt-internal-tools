@@ -4,6 +4,7 @@ import { ToolFilters } from '../types/tool.js'
 export class ToolService {
   async getTools(filters: ToolFilters = {}) {
     const query = Tool.query().preload('category')
+    const total = await this.getTotalTools()
 
     if (filters.department) {
       query.where('owner_department', filters.department)
@@ -24,6 +25,32 @@ export class ToolService {
       query.orderBy(filters.sort_by, filters.sort_order ?? 'asc')
     }
 
-    return query
+    const tools = await query
+
+    return {
+      tools: tools.map(this.formatTool),
+      total: Number(total?.$extras.total ?? 0),
+      filtered: tools.length,
+    }
+  }
+
+  async getTotalTools() {
+    return Tool.query().count('* as total').first()
+  }
+
+  private formatTool(tool: Tool) {
+    return {
+      id: tool.id,
+      name: tool.name,
+      description: tool.description,
+      vendor: tool.vendor,
+      website_url: tool.websiteUrl,
+      category: tool.category?.name ?? null,
+      monthly_cost: Number(tool.monthlyCost),
+      owner_department: tool.ownerDepartment,
+      status: tool.status,
+      active_users_count: tool.activeUsersCount,
+      created_at: tool.createdAt,
+    }
   }
 }

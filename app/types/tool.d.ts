@@ -1,3 +1,5 @@
+import Tool from '#models/tool'
+
 export interface ToolFilters {
   department?: string
   status?: string
@@ -10,4 +12,16 @@ export interface ToolFilters {
   // tri
   sort_by?: 'monthly_cost' | 'name' | 'created_at'
   sort_order?: 'asc' | 'desc'
+}
+
+export interface FormattedTool {
+  id: number
+  name: string
+  website_url: string | null
+  category: string | null
+  monthly_cost: number
+  owner_department: string
+  status: string
+  active_users_count: number
+  created_at: DateTime
 }
