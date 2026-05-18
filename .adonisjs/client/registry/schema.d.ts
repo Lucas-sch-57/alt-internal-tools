@@ -19,4 +19,16 @@ export interface Registry {
       errorResponse: unknown
     }
   }
+  'tools.get_single': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/tools/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
 }

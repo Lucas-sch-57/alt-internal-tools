@@ -12,6 +12,12 @@ const routes = {
     tokens: [{"old":"/api/tools","type":0,"val":"api","end":""},{"old":"/api/tools","type":0,"val":"tools","end":""}],
     types: placeholder as Registry['tools.index']['types'],
   },
+  'tools.get_single': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/tools/:id',
+    tokens: [{"old":"/api/tools/:id","type":0,"val":"api","end":""},{"old":"/api/tools/:id","type":0,"val":"tools","end":""},{"old":"/api/tools/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['tools.get_single']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

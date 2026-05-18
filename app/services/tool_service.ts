@@ -1,5 +1,7 @@
 import Tool from '#models/tool'
+import { DateTime } from 'luxon'
 import { ToolFilters } from '../types/tool.js'
+import { getAvgSessionsTime } from '../helpers/metrics.ts'
 
 export class ToolService {
   async getTools(filters: ToolFilters = {}) {
@@ -41,6 +43,18 @@ export class ToolService {
     }
   }
 
+  async getSingleTool(id: number) {
+    const tool = await Tool.query()
+      .where('id', id)
+      .preload('category')
+      .preload('usageLogs', (q) => {
+        q.where('session_date', '>=', DateTime.now().minus({ days: 30 }).toSQLDate())
+      })
+      .firstOrFail()
+
+    return this.formatToolDetails(tool)
+  }
+
   async getTotalTools() {
     return Tool.query().count('* as total').first()
   }
@@ -58,6 +72,20 @@ export class ToolService {
       status: tool.status,
       active_users_count: tool.activeUsersCount,
       created_at: tool.createdAt,
+    }
+  }
+
+  private formatToolDetails(tool: Tool) {
+    const logs = tool.usageLogs ?? []
+
+    return {
+      ...this.formatTool(tool),
+      usage_metrics: {
+        last_30_days: {
+          total_sessions: logs.length,
+          avg_session_minutes: getAvgSessionsTime(logs),
+        },
+      },
     }
   }
 }

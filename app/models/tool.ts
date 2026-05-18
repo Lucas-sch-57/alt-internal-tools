@@ -1,9 +1,13 @@
 import { ToolSchema } from '#database/schema'
-import { belongsTo } from '@adonisjs/lucid/orm'
+import { belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import Category from './category.ts'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import UsageLog from './usage_log.ts'
 
 export default class Tool extends ToolSchema {
   @belongsTo(() => Category)
   declare category: BelongsTo<typeof Category>
+
+  @hasMany(() => UsageLog)
+  declare usageLogs: HasMany<typeof UsageLog>
 }
