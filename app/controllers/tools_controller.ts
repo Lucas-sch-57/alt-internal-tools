@@ -7,28 +7,31 @@ import { buildFiltersApplied } from '../helpers/filters.ts'
 export default class ToolsController {
   constructor(private toolService: ToolService) {}
   /**
-   * Retrieves a paginated and filtered list of tools.
+   * @index
+   * @summary Get tools list
+   * @description Retrieve a paginated and filtered list of tools
    *
-   * Supports filtering by department, status, cost range, and category.
-   * Returns the total count of all tools, the count after filters are applied,
-   * and the active filters for transparency.
+   * @requestQuery <toolFiltersValidator>
    *
-   * @param ctx - The HTTP context containing the request object
-   * @param ctx.request - Used to extract and validate query parameters
-   *
-   * @returns A JSON response containing:
-   * - `data` - The list of tools matching the filters
-   * - `total` - Total number of tools in the database (unfiltered)
-   * - `filtered` - Number of tools matching the applied filters
-   * - `filters_applied` - The active filters (omitted if no filters provided)
-   *
-   * @example
-   * GET /api/tools?department=Engineering&min_cost=10&max_cost=50
-   * {
-   *   "data": [...],
+   * @responseBody 200 - {
+   *   "data": [
+   *     {
+   *       "id": 1,
+   *       "name": "Linear",
+   *       "vendor": "Linear",
+   *       "monthly_cost": 8
+   *     }
+   *   ],
    *   "total": 24,
    *   "filtered": 5,
-   *   "filters_applied": { "department": "Engineering", "min_cost": 10, "max_cost": 50 }
+   *   "pagination": {
+   *     "page": 1,
+   *     "limit": 10,
+   *     "total_pages": 3
+   *   },
+   *   "filters_applied": {
+   *     "department": "Engineering"
+   *   }
    * }
    */
   async index({ request }: HttpContext) {
@@ -45,11 +48,28 @@ export default class ToolsController {
     }
   }
 
+  /**
+   * @show
+   * @summary Get single tool
+   * @description Retrieve a tool by its ID
+   *
+   * @paramPath id - Tool ID
+   *
+   * @responseBody 200 - <Tool>
+   */
   async getSingle({ params }: HttpContext) {
     const id = params.id
     return await this.toolService.getSingleTool(id)
   }
-
+  /**
+   * @create
+   * @summary Create tool
+   * @description Create a tool and return its data
+   *
+   * @requestBody <createToolValidator>
+   *
+   * @responseBody 201 - <Tool>
+   */
   async create({ request }: HttpContext) {
     const payload = await request.validateUsing(createToolValidator)
     const tool = await this.toolService.createTool(payload)
@@ -57,7 +77,14 @@ export default class ToolsController {
       data: tool,
     }
   }
-
+  /**
+   * @update
+   * @summary Update tool
+   *
+   * @requestBody <updateToolValidator>
+   *
+   * @responseBody 200 - <Tool>
+   */
   async update({ request, params }: HttpContext) {
     const payload = await request.validateUsing(updateToolValidator)
     const tool = await this.toolService.updateTool(payload, params.id)
