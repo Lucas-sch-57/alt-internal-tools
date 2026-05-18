@@ -1,3 +1,7 @@
+import Tool from '#models/tool'
+
 export class ToolService {
-  // Your code here
+  async getTools() {
+    return Tool.query().preload('category')
+  }
 }
