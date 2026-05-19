@@ -55,7 +55,7 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'analytics.get_department_costs': {
+  'analytics.department_costs': {
     methods: ["GET","HEAD"]
     pattern: '/api/analytics/department-costs'
     types: {
@@ -63,11 +63,11 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getDepartmentCosts']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getDepartmentCosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['departmentCosts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['departmentCosts']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'analytics.get_tools_by_category': {
+  'analytics.tools_by_category': {
     methods: ["GET","HEAD"]
     pattern: '/api/analytics/tools-by-category'
     types: {
@@ -75,11 +75,11 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getToolsByCategory']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getToolsByCategory']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['toolsByCategory']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['toolsByCategory']>>>
     }
   }
-  'analytics.get_low_usage_tools': {
+  'analytics.low_usage_tools': {
     methods: ["GET","HEAD"]
     pattern: '/api/analytics/low-usage-tools'
     types: {
@@ -87,11 +87,11 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getLowUsageTools']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getLowUsageTools']>>> | { status: 422; response: { errors: SimpleError[] } }
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['lowUsageTools']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['lowUsageTools']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'analytics.get_expensive_tools': {
+  'analytics.expensive_tools': {
     methods: ["GET","HEAD"]
     pattern: '/api/analytics/expensive-tools'
     types: {
@@ -99,11 +99,11 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>> | { status: 422; response: { errors: SimpleError[] } }
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['expensiveTools']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['expensiveTools']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'analytics.get_vendor_summary': {
+  'analytics.vendor_summary': {
     methods: ["GET","HEAD"]
     pattern: '/api/analytics/vendor-summary'
     types: {
@@ -111,8 +111,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getVendorSummary']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getVendorSummary']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['vendorSummary']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['vendorSummary']>>>
     }
   }
 }

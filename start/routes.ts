@@ -34,11 +34,11 @@ router
       .prefix('tools')
     router
       .group(() => {
-        router.get('/department-costs', [AnalyticsController, 'getDepartmentCosts'])
-        router.get('tools-by-category', [AnalyticsController, 'getToolsByCategory'])
-        router.get('low-usage-tools', [AnalyticsController, 'getLowUsageTools'])
-        router.get('expensive-tools', [AnalyticsController, 'getExpensiveTools'])
-        router.get('vendor-summary', [AnalyticsController, 'getVendorSummary'])
+        router.get('/department-costs', [AnalyticsController, 'departmentCosts'])
+        router.get('tools-by-category', [AnalyticsController, 'toolsByCategory'])
+        router.get('low-usage-tools', [AnalyticsController, 'lowUsageTools'])
+        router.get('expensive-tools', [AnalyticsController, 'expensiveTools'])
+        router.get('vendor-summary', [AnalyticsController, 'vendorSummary'])
       })
       .prefix('analytics')
   })

@@ -4,18 +4,17 @@ import url from 'node:url'
 export default {
   // path: __dirname + "/../", for AdonisJS v5
   path: path.dirname(url.fileURLToPath(import.meta.url)) + '/../', // for AdonisJS v6
-  title: 'Foo', // use info instead
+  title: 'Internal Tools API', // use info instead
   version: '1.0.0', // use info instead
-  description: '', // use info instead
+  description: 'REST API for the Internal Tools SAAS', // use info instead
   tagIndex: 2,
   productionEnv: 'production', // optional
   info: {
-    title: 'title',
+    title: 'Internal Tools API',
     version: '1.0.0',
-    description: '',
+    description: 'REST API for the Internal Tools SAAS',
   },
   snakeCase: true,
-
   debug: false, // set to true, to get some useful debug output
   ignore: ['/swagger', '/docs'],
   preferredPutPatch: 'PUT', // if PUT/PATCH are provided for the same route, prefer PUT

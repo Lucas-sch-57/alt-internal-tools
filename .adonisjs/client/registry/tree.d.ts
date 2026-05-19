@@ -9,10 +9,10 @@ export interface ApiDefinition {
     update: typeof routes['tools.update']
   }
   analytics: {
-    getDepartmentCosts: typeof routes['analytics.get_department_costs']
-    getToolsByCategory: typeof routes['analytics.get_tools_by_category']
-    getLowUsageTools: typeof routes['analytics.get_low_usage_tools']
-    getExpensiveTools: typeof routes['analytics.get_expensive_tools']
-    getVendorSummary: typeof routes['analytics.get_vendor_summary']
+    departmentCosts: typeof routes['analytics.department_costs']
+    toolsByCategory: typeof routes['analytics.tools_by_category']
+    lowUsageTools: typeof routes['analytics.low_usage_tools']
+    expensiveTools: typeof routes['analytics.expensive_tools']
+    vendorSummary: typeof routes['analytics.vendor_summary']
   }
 }
