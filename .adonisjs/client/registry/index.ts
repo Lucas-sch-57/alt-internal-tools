@@ -48,6 +48,12 @@ const routes = {
     tokens: [{"old":"/api/analytics/low-usage-tools","type":0,"val":"api","end":""},{"old":"/api/analytics/low-usage-tools","type":0,"val":"analytics","end":""},{"old":"/api/analytics/low-usage-tools","type":0,"val":"low-usage-tools","end":""}],
     types: placeholder as Registry['analytics.get_low_usage_tools']['types'],
   },
+  'analytics.get_expensive_tools': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/analytics/expensive-tools',
+    tokens: [{"old":"/api/analytics/expensive-tools","type":0,"val":"api","end":""},{"old":"/api/analytics/expensive-tools","type":0,"val":"analytics","end":""},{"old":"/api/analytics/expensive-tools","type":0,"val":"expensive-tools","end":""}],
+    types: placeholder as Registry['analytics.get_expensive_tools']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

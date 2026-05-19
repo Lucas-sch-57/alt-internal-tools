@@ -11,6 +11,7 @@ export type ScannedRoutes = {
     'analytics.get_department_costs': { paramsTuple?: []; params?: {} }
     'analytics.get_tools_by_category': { paramsTuple?: []; params?: {} }
     'analytics.get_low_usage_tools': { paramsTuple?: []; params?: {} }
+    'analytics.get_expensive_tools': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'tools.index': { paramsTuple?: []; params?: {} }
@@ -18,6 +19,7 @@ export type ScannedRoutes = {
     'analytics.get_department_costs': { paramsTuple?: []; params?: {} }
     'analytics.get_tools_by_category': { paramsTuple?: []; params?: {} }
     'analytics.get_low_usage_tools': { paramsTuple?: []; params?: {} }
+    'analytics.get_expensive_tools': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
     'tools.index': { paramsTuple?: []; params?: {} }
@@ -25,6 +27,7 @@ export type ScannedRoutes = {
     'analytics.get_department_costs': { paramsTuple?: []; params?: {} }
     'analytics.get_tools_by_category': { paramsTuple?: []; params?: {} }
     'analytics.get_low_usage_tools': { paramsTuple?: []; params?: {} }
+    'analytics.get_expensive_tools': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'tools.create': { paramsTuple?: []; params?: {} }

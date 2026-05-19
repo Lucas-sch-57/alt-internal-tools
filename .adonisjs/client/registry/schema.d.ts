@@ -91,4 +91,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getLowUsageTools']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'analytics.get_expensive_tools': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/expensive-tools'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>>
+    }
+  }
 }

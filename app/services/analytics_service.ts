@@ -151,6 +151,87 @@ export class AnalyticsService {
     }
   }
 
+  async getExpensiveTools(minCost?: number, limit: number = 10) {
+    const avgRow = await db
+      .from('tools')
+      .where('status', 'active')
+      .where('active_users_count', '>', 0)
+      .select(db.raw('SUM(monthly_cost)/SUM(active_users_count) as avg_cost_per_user'))
+      .first()
+
+    const avgCostPerUserCompany = Math.round(Number(avgRow.avg_cost_per_user ?? 0) * 100) / 100
+
+    const rows = await db
+      .from('tools')
+      .where('status', 'active')
+      .where((q) => {
+        if (minCost !== undefined) {
+          q.where('monthly_cost', '>=', minCost)
+        }
+      })
+      .select(
+        'id',
+        'name',
+        'monthly_cost',
+        'active_users_count',
+        'owner_department as department',
+        'vendor'
+      )
+      .orderBy('monthly_cost', 'desc')
+      .limit(limit)
+
+    const totalAnalyzed = await db
+      .from('tools')
+      .where('status', 'active')
+      .count('* as total')
+      .first()
+
+    const data = rows.map((r) => {
+      const monthlyCost = Number(r.monthly_cost)
+      const users = Number(r.active_users_count)
+      const costPerUser = users > 0 ? Math.round((monthlyCost / users) * 100) / 100 : null
+      const efficiencyRating = this.getEfficiencyRating(costPerUser, avgCostPerUserCompany)
+      return {
+        id: r.id,
+        name: r.name,
+        monthly_cost: monthlyCost,
+        active_users_count: users,
+        cost_per_user: costPerUser,
+        department: r.department,
+        vendor: r.vendor,
+        efficiency_rating: efficiencyRating,
+      }
+    })
+
+    const potentialSavings =
+      Math.round(
+        data
+          .filter((r) => r.efficiency_rating === 'low')
+          .reduce((sum, r) => sum + r.monthly_cost, 0) * 100
+      ) / 100
+
+    return {
+      data,
+      analysis: {
+        total_tools_analyzed: Number(totalAnalyzed?.total ?? 0),
+        avg_cost_per_user_company: avgCostPerUserCompany,
+        potential_savings_identified: potentialSavings,
+      },
+    }
+  }
+
+  private getEfficiencyRating(
+    costPerUser: number | null,
+    avgCostPerUser: number
+  ): 'excellent' | 'good' | 'average' | 'low' {
+    if (costPerUser === null) return 'low' // 0 users = low
+    const ratio = costPerUser / avgCostPerUser
+    if (ratio < 0.5) return 'excellent'
+    if (ratio < 0.8) return 'good'
+    if (ratio <= 1.2) return 'average'
+    return 'low'
+  }
+
   private getWarningLevel(users: number, costPerUser: number | null): 'low' | 'medium' | 'high' {
     if (users === 0 || costPerUser === null) return 'high'
     if (costPerUser > 50) return 'high'

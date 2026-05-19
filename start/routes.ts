@@ -37,6 +37,7 @@ router
         router.get('/department-costs', [AnalyticsController, 'getDepartmentCosts'])
         router.get('tools-by-category', [AnalyticsController, 'getToolsByCategory'])
         router.get('low-usage-tools', [AnalyticsController, 'getLowUsageTools'])
+        router.get('expensive-tools',[AnalyticsController,'getExpensiveTools'])
       })
       .prefix('analytics')
   })

@@ -19,4 +19,9 @@ export default class AnalyticsController {
     const { max_users } = await request.validateUsing(analyticsFiltersValidator)
     return this.analyticsService.getLowUsageTools(max_users)
   }
+
+  async getExpensiveTools({ request }: HttpContext) {
+    const { min_cost, limit } = await request.validateUsing(analyticsFiltersValidator)
+    return this.analyticsService.getExpensiveTools(min_cost, limit)
+  }
 }
