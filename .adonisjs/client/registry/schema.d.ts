@@ -79,4 +79,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getToolsByCategory']>>>
     }
   }
+  'analytics.get_low_usage_tools': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/low-usage-tools'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getLowUsageTools']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getLowUsageTools']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }

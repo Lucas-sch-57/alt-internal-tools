@@ -14,4 +14,9 @@ export default class AnalyticsController {
   async getToolsByCategory() {
     return this.analyticsService.getToolsByCategory()
   }
+
+  async getLowUsageTools({ request }: HttpContext) {
+    const { max_users } = await request.validateUsing(analyticsFiltersValidator)
+    return this.analyticsService.getLowUsageTools(max_users)
+  }
 }

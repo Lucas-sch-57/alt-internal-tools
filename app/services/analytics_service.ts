@@ -99,6 +99,74 @@ export class AnalyticsService {
     }
   }
 
+  async getLowUsageTools(maxUsers: number = 5) {
+    const rows = await db
+      .query()
+      .from('tools')
+      .where('status', 'active')
+      .where('active_users_count', '<=', maxUsers)
+      .select(
+        'id',
+        'name',
+        'monthly_cost',
+        'active_users_count',
+        'owner_department as department',
+        'vendor'
+      )
+      .orderBy('monthly_cost', 'desc')
+
+    const data = rows.map((r) => {
+      const monthlyCost = Number(r.monthly_cost)
+      const users = Number(r.active_users_count)
+      const costPerUser = users > 0 ? Math.round((monthlyCost / users) * 100) / 100 : 0
+      const warningLevel = this.getWarningLevel(users, costPerUser)
+      return {
+        id: r.id,
+        name: r.name,
+        monthly_cost: monthlyCost,
+        active_users_count: users,
+        cost_per_user: costPerUser,
+        department: r.department,
+        vendor: r.vendor,
+        warning_level: warningLevel,
+        potential_action: this.getPotentialAction(warningLevel),
+      }
+    })
+
+    // savings = outils high + medium uniquement
+    const potentialMonthlySavings =
+      Math.round(
+        data
+          .filter((r) => r.warning_level === 'high' || r.warning_level === 'medium')
+          .reduce((sum, r) => sum + r.monthly_cost, 0) * 100
+      ) / 100
+
+    return {
+      data,
+      savings_analysis: {
+        total_underutilized_tools: data.length,
+        potential_monthly_savings: potentialMonthlySavings,
+        potential_annual_savings: Math.round(potentialMonthlySavings * 12 * 100) / 100,
+      },
+    }
+  }
+
+  private getWarningLevel(users: number, costPerUser: number | null): 'low' | 'medium' | 'high' {
+    if (users === 0 || costPerUser === null) return 'high'
+    if (costPerUser > 50) return 'high'
+    if (costPerUser >= 20) return 'medium'
+    return 'low'
+  }
+
+  private getPotentialAction(warningLevel: 'low' | 'medium' | 'high'): string {
+    const actions = {
+      high: 'Consider canceling or downgrading',
+      medium: 'Review usage and consider optimization',
+      low: 'Monitor usage trends',
+    }
+    return actions[warningLevel]
+  }
+
   private avgCostPerUser(totalCost: number, totalUsers: number) {
     return totalUsers > 0 ? Math.round((totalCost / totalUsers) * 100) / 100 : 0
   }
