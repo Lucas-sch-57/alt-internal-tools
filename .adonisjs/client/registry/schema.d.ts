@@ -55,4 +55,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'analytics.get_department_costs': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/department-costs'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getDepartmentCosts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getDepartmentCosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }

@@ -8,4 +8,7 @@ export interface ApiDefinition {
     create: typeof routes['tools.create']
     update: typeof routes['tools.update']
   }
+  analytics: {
+    getDepartmentCosts: typeof routes['analytics.get_department_costs']
+  }
 }

@@ -4,5 +4,6 @@
  */
 
 export const controllers = {
+  Analytics: () => import('#controllers/analytics_controller'),
   Tools: () => import('#controllers/tools_controller'),
 }

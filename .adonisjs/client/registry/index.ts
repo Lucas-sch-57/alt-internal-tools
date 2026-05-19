@@ -30,6 +30,12 @@ const routes = {
     tokens: [{"old":"/api/tools/:id","type":0,"val":"api","end":""},{"old":"/api/tools/:id","type":0,"val":"tools","end":""},{"old":"/api/tools/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['tools.update']['types'],
   },
+  'analytics.get_department_costs': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/analytics/department-costs',
+    tokens: [{"old":"/api/analytics/department-costs","type":0,"val":"api","end":""},{"old":"/api/analytics/department-costs","type":0,"val":"analytics","end":""},{"old":"/api/analytics/department-costs","type":0,"val":"department-costs","end":""}],
+    types: placeholder as Registry['analytics.get_department_costs']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }
