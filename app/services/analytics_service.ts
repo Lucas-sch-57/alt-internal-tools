@@ -220,6 +220,65 @@ export class AnalyticsService {
     }
   }
 
+  async getVendorSummary() {
+    const rows = await db
+      .query()
+      .from('tools')
+      .where('status', 'active')
+      .groupBy('vendor')
+      .select(
+        'vendor',
+        db.raw('COUNT(*) as tools_count'),
+        db.raw('ROUND(SUM(monthly_cost),2) as total_monthly_cost'),
+        db.raw('SUM(active_users_count) as total_users'),
+        db.raw(
+          'GROUP_CONCAT(DISTINCT owner_department ORDER BY owner_department ASC SEPARATOR ",") as departments'
+        )
+      )
+      .orderBy('total_monthly_cost', 'desc')
+
+    const data = rows.map((r) => {
+      const totalCost = Number(r.total_monthly_cost)
+      const totalUsers = Number(r.total_users)
+      const avgCostPerUser =
+        totalUsers > 0 ? Math.round((totalCost / totalUsers) * 100) / 100 : null
+      return {
+        vendor: r.vendor,
+        tools_count: Number(r.tools_count),
+        total_monthly_cost: totalCost,
+        total_users: totalUsers,
+        departments: r.departments,
+        average_cost_per_user: avgCostPerUser,
+        vendor_efficiency: this.getVendorEfficiency(avgCostPerUser),
+      }
+    })
+
+    const mostExpensive = data[0]
+    const withUsers = data.filter((r) => r.average_cost_per_user !== null)
+    const mostEfficient = [...withUsers].sort((a, b) =>
+      a.average_cost_per_user! !== b.average_cost_per_user!
+        ? a.average_cost_per_user! - b.average_cost_per_user!
+        : a.vendor.localeCompare(b.vendor)
+    )[0]
+    const singleToolVendors = data.filter((r) => r.tools_count === 1).length
+    return {
+      data,
+      vendor_insights: {
+        most_expensive_vendor: mostExpensive?.vendor ?? null,
+        most_efficient_vendor: mostEfficient?.vendor ?? null,
+        single_tool_vendors: singleToolVendors,
+      },
+    }
+  }
+
+  private getVendorEfficiency(avgCostPerUser: number | null): string {
+    if (avgCostPerUser === null) return 'poor' // 0 users
+    if (avgCostPerUser < 5) return 'excellent'
+    if (avgCostPerUser <= 15) return 'good'
+    if (avgCostPerUser <= 25) return 'average'
+    return 'poor'
+  }
+
   private getEfficiencyRating(
     costPerUser: number | null,
     avgCostPerUser: number

@@ -24,4 +24,8 @@ export default class AnalyticsController {
     const { min_cost, limit } = await request.validateUsing(analyticsFiltersValidator)
     return this.analyticsService.getExpensiveTools(min_cost, limit)
   }
+
+  async getVendorSummary(){
+    return this.analyticsService.getVendorSummary()
+  }
 }

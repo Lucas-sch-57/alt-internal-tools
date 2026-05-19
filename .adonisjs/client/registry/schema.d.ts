@@ -98,9 +98,21 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'analytics.get_vendor_summary': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/vendor-summary'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getVendorSummary']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getVendorSummary']>>>
     }
   }
 }

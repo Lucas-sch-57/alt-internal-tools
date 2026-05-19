@@ -13,5 +13,6 @@ export interface ApiDefinition {
     getToolsByCategory: typeof routes['analytics.get_tools_by_category']
     getLowUsageTools: typeof routes['analytics.get_low_usage_tools']
     getExpensiveTools: typeof routes['analytics.get_expensive_tools']
+    getVendorSummary: typeof routes['analytics.get_vendor_summary']
   }
 }
