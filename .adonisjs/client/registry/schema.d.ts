@@ -55,4 +55,64 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tools_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'analytics.get_department_costs': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/department-costs'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getDepartmentCosts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getDepartmentCosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'analytics.get_tools_by_category': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/tools-by-category'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getToolsByCategory']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getToolsByCategory']>>>
+    }
+  }
+  'analytics.get_low_usage_tools': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/low-usage-tools'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getLowUsageTools']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getLowUsageTools']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'analytics.get_expensive_tools': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/expensive-tools'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/analytics').analyticsFiltersValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getExpensiveTools']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'analytics.get_vendor_summary': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/vendor-summary'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getVendorSummary']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getVendorSummary']>>>
+    }
+  }
 }

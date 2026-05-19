@@ -11,6 +11,7 @@ import AutoSwagger from 'adonis-autoswagger'
 import swagger from '#config/swagger'
 
 const ToolsController = () => import('#controllers/tools_controller')
+const AnalyticsController = () => import('#controllers/analytics_controller')
 
 router.get('/swagger', async () => {
   return AutoSwagger.default.docs(router.toJSON(), swagger)
@@ -23,10 +24,22 @@ router.get('/docs', async () => {
 })
 router
   .group(() => {
-    router.get('/', [ToolsController, 'index'])
-    router.get(':id', [ToolsController, 'getSingle'])
-    router.post('/', [ToolsController, 'create'])
-    router.put('/:id', [ToolsController, 'update'])
+    router
+      .group(() => {
+        router.get('/', [ToolsController, 'index'])
+        router.get(':id', [ToolsController, 'getSingle'])
+        router.post('/', [ToolsController, 'create'])
+        router.put('/:id', [ToolsController, 'update'])
+      })
+      .prefix('tools')
+    router
+      .group(() => {
+        router.get('/department-costs', [AnalyticsController, 'getDepartmentCosts'])
+        router.get('tools-by-category', [AnalyticsController, 'getToolsByCategory'])
+        router.get('low-usage-tools', [AnalyticsController, 'getLowUsageTools'])
+        router.get('expensive-tools', [AnalyticsController, 'getExpensiveTools'])
+        router.get('vendor-summary', [AnalyticsController, 'getVendorSummary'])
+      })
+      .prefix('analytics')
   })
-  .prefix('tools')
   .prefix('api')
