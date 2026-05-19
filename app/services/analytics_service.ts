@@ -1,11 +1,22 @@
 import db from '@adonisjs/lucid/services/db'
 import { emptyResponse } from '../helpers/response.ts'
+import {
+  CategoryAnalyticsResponse,
+  DepartmentCostResponse,
+  EfficiencyRating,
+  EmptyDepartmentCostResponse,
+  ExpensiveToolsResponse,
+  LowUsageToolsResponse,
+  VendorEfficiency,
+  VendorSummaryResponse,
+  WarningLevel,
+} from '../types/analytics.js'
 
 export class AnalyticsService {
   async getDepartmentTotalCost(
     sortBy: 'total_cost' | 'department' = 'total_cost',
     order: 'asc' | 'desc' = 'desc'
-  ) {
+  ): Promise<DepartmentCostResponse | EmptyDepartmentCostResponse> {
     const rows = await db
       .from('tools')
       .where('status', 'active')
@@ -57,7 +68,7 @@ export class AnalyticsService {
     }
   }
 
-  async getToolsByCategory() {
+  async getToolsByCategory(): Promise<CategoryAnalyticsResponse> {
     const rows = await db
       .query()
       .from('tools')
@@ -114,7 +125,7 @@ export class AnalyticsService {
     }
   }
 
-  async getLowUsageTools(maxUsers: number = 5) {
+  async getLowUsageTools(maxUsers: number = 5): Promise<LowUsageToolsResponse> {
     const rows = await db
       .query()
       .from('tools')
@@ -173,7 +184,7 @@ export class AnalyticsService {
     }
   }
 
-  async getExpensiveTools(minCost?: number, limit: number = 10) {
+  async getExpensiveTools(minCost?: number, limit: number = 10): Promise<ExpensiveToolsResponse> {
     const avgRow = await db
       .from('tools')
       .where('status', 'active')
@@ -250,7 +261,7 @@ export class AnalyticsService {
     }
   }
 
-  async getVendorSummary() {
+  async getVendorSummary(): Promise<VendorSummaryResponse> {
     const rows = await db
       .query()
       .from('tools')
@@ -309,7 +320,7 @@ export class AnalyticsService {
     }
   }
 
-  private getVendorEfficiency(avgCostPerUser: number | null): string {
+  private getVendorEfficiency(avgCostPerUser: number | null): VendorEfficiency {
     if (avgCostPerUser === null) return 'poor' // 0 users
     if (avgCostPerUser < 5) return 'excellent'
     if (avgCostPerUser <= 15) return 'good'
@@ -320,7 +331,7 @@ export class AnalyticsService {
   private getEfficiencyRating(
     costPerUser: number | null,
     avgCostPerUser: number
-  ): 'excellent' | 'good' | 'average' | 'low' {
+  ): EfficiencyRating {
     if (costPerUser === null) return 'low' // 0 users = low
     const ratio = costPerUser / avgCostPerUser
     if (ratio < 0.5) return 'excellent'
@@ -329,14 +340,14 @@ export class AnalyticsService {
     return 'low'
   }
 
-  private getWarningLevel(users: number, costPerUser: number | null): 'low' | 'medium' | 'high' {
+  private getWarningLevel(users: number, costPerUser: number | null): WarningLevel {
     if (users === 0 || costPerUser === null) return 'high'
     if (costPerUser > 50) return 'high'
     if (costPerUser >= 20) return 'medium'
     return 'low'
   }
 
-  private getPotentialAction(warningLevel: 'low' | 'medium' | 'high'): string {
+  private getPotentialAction(warningLevel: WarningLevel): string {
     const actions = {
       high: 'Consider canceling or downgrading',
       medium: 'Review usage and consider optimization',
@@ -345,15 +356,15 @@ export class AnalyticsService {
     return actions[warningLevel]
   }
 
-  private avgCostPerUser(totalCost: number, totalUsers: number) {
+  private avgCostPerUser(totalCost: number, totalUsers: number): number {
     return totalUsers > 0 ? Math.round((totalCost / totalUsers) * 100) / 100 : 0
   }
 
-  private avgCostPerTool(toolsCount: number, totalCost: number) {
+  private avgCostPerTool(toolsCount: number, totalCost: number): number {
     return toolsCount > 0 ? Math.round((totalCost / toolsCount) * 100) / 100 : 0
   }
 
-  private costPercentage(totalCompanyCost: number, totalCost: number) {
+  private costPercentage(totalCompanyCost: number, totalCost: number): number {
     return totalCompanyCost > 0 ? Math.round((totalCost / totalCompanyCost) * 1000) / 10 : 0
   }
 }
