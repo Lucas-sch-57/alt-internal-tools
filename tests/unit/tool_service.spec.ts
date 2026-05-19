@@ -3,6 +3,7 @@ import { ToolService } from '#services/tool_service'
 import testUtils from '@adonisjs/core/services/test_utils'
 import Category from '#models/category'
 import Tool from '#models/tool'
+import { Departments } from '../../app/enums/tools.ts'
 
 test.group('ToolService', (group) => {
   group.each.setup(() => testUtils.db().wrapInGlobalTransaction())
@@ -32,7 +33,7 @@ test.group('ToolService', (group) => {
 
   test('getTools retourne tableau vide si aucun résultat', async ({ assert }) => {
     const service = new ToolService()
-    const { tools, filtered } = await service.getTools({ department: 'DepartementInexistant' })
+    const { tools, filtered } = await service.getTools({ department: 'undefined' as Departments })
 
     assert.isEmpty(tools)
     assert.equal(filtered, 0)
