@@ -9,16 +9,19 @@ export type ScannedRoutes = {
     'tools.create': { paramsTuple?: []; params?: {} }
     'tools.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'analytics.get_department_costs': { paramsTuple?: []; params?: {} }
+    'analytics.get_tools_by_category': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'tools.index': { paramsTuple?: []; params?: {} }
     'tools.get_single': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'analytics.get_department_costs': { paramsTuple?: []; params?: {} }
+    'analytics.get_tools_by_category': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
     'tools.index': { paramsTuple?: []; params?: {} }
     'tools.get_single': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'analytics.get_department_costs': { paramsTuple?: []; params?: {} }
+    'analytics.get_tools_by_category': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'tools.create': { paramsTuple?: []; params?: {} }

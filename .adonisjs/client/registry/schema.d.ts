@@ -67,4 +67,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getDepartmentCosts']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'analytics.get_tools_by_category': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/analytics/tools-by-category'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getToolsByCategory']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/analytics_controller').default['getToolsByCategory']>>>
+    }
+  }
 }

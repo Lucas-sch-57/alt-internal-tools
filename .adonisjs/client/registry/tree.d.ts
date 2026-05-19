@@ -10,5 +10,6 @@ export interface ApiDefinition {
   }
   analytics: {
     getDepartmentCosts: typeof routes['analytics.get_department_costs']
+    getToolsByCategory: typeof routes['analytics.get_tools_by_category']
   }
 }

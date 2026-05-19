@@ -10,4 +10,8 @@ export default class AnalyticsController {
     const result = await this.analyticsService.getDepartmentTotalCost(sort_by, order)
     return result
   }
+
+  async getToolsByCategory() {
+    return this.analyticsService.getToolsByCategory()
+  }
 }

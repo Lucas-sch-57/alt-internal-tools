@@ -35,6 +35,7 @@ router
     router
       .group(() => {
         router.get('/department-costs', [AnalyticsController, 'getDepartmentCosts'])
+        router.get('tools-by-category', [AnalyticsController, 'getToolsByCategory'])
       })
       .prefix('analytics')
   })
