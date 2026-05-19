@@ -1,4 +1,5 @@
 import db from '@adonisjs/lucid/services/db'
+import { emptyResponse } from '../helpers/response.ts'
 
 export class AnalyticsService {
   async getDepartmentTotalCost(
@@ -16,6 +17,13 @@ export class AnalyticsService {
         db.raw('SUM(active_users_count) as total_users')
       )
       .orderBy(sortBy, order)
+
+    if (rows.length === 0) {
+      return emptyResponse('summary', {
+        departments_count: 0,
+        most_expensive_department: null,
+      })
+    }
 
     const totalCompanyCost = rows.reduce((sum, r) => sum + Number(r.total_cost), 0)
     const data = rows.map((r) => {
@@ -63,6 +71,13 @@ export class AnalyticsService {
         db.raw('SUM(tools.active_users_count) as total_users')
       )
       .orderBy('total_cost', 'desc')
+
+    if (rows.length === 0) {
+      return emptyResponse('insights', {
+        most_expensive_category: null,
+        most_efficient_category: null,
+      })
+    }
 
     const totalCompanyCost = rows.reduce((sum, r) => sum + Number(r.total_cost), 0)
 
@@ -115,6 +130,13 @@ export class AnalyticsService {
       )
       .orderBy('monthly_cost', 'desc')
 
+    if (rows.length === 0) {
+      return emptyResponse('savings_analysis', {
+        total_underutilized_tools: 0,
+        potential_monthly_savings: 0,
+        potential_annual_savings: 0,
+      })
+    }
     const data = rows.map((r) => {
       const monthlyCost = Number(r.monthly_cost)
       const users = Number(r.active_users_count)
@@ -180,6 +202,14 @@ export class AnalyticsService {
       .orderBy('monthly_cost', 'desc')
       .limit(limit)
 
+    if (rows.length === 0) {
+      return emptyResponse('analysis', {
+        total_tools_analyzed: 0,
+        avg_cost_per_user_company: 0,
+        potential_savings_identified: 0,
+      })
+    }
+
     const totalAnalyzed = await db
       .from('tools')
       .where('status', 'active')
@@ -236,6 +266,14 @@ export class AnalyticsService {
         )
       )
       .orderBy('total_monthly_cost', 'desc')
+
+    if (rows.length === 0) {
+      return emptyResponse('vendor_insights', {
+        most_expensive_vendor: null,
+        most_efficient_vendor: null,
+        single_tool_vendors: 0,
+      })
+    }
 
     const data = rows.map((r) => {
       const totalCost = Number(r.total_monthly_cost)
