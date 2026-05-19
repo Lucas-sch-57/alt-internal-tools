@@ -78,10 +78,23 @@ DB_DATABASE=internal_tools
 
 ---
 
+## Analytics
+
+| Method | Endpoint                       | Description                  |
+| ------ | ------------------------------ | ---------------------------- |
+| GET    | /api/analytics/departments     | Department costs analytics   |
+| GET    | /api/analytics/categories      | Category budget analytics    |
+| GET    | /api/analytics/low-usage-tools | Underutilized tools analysis |
+| GET    | /api/analytics/expensive-tools | Expensive tools analysis     |
+| GET    | /api/analytics/vendors         | Vendor summary analytics     |
+
+---
+
 # Validation & Error Handling
 
 - VineJS validation
 - Proper HTTP status codes
+- Custom Exception Handler
 
 ---
 
