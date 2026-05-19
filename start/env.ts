@@ -26,8 +26,10 @@ export default await Env.create(new URL('../', import.meta.url), {
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory', 'database'] as const),
   //Database
   DB_HOST: Env.schema.string(),
-  DB_PORT: Env.schema.number(),
-  DB_USER: Env.schema.string(),
-  DB_PASSWORD: Env.schema.string(),
-  DB_DATABASE: Env.schema.string(),
+  MYSQL_PORT: Env.schema.number(),
+  MYSQL_USER: Env.schema.string(),
+  MYSQL_PASSWORD: Env.schema.string(),
+  MYSQL_DATABASE: Env.schema.string(),
+  MYSQL_ROOT_PASSWORD: Env.schema.string(),
+  PHPMYADMIN_PORT: Env.schema.string(),
 })
