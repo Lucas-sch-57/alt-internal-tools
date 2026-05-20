@@ -2,9 +2,9 @@ import { Building2, TrendingUp, Users, Wrench } from 'lucide-react';
 
 interface KpiCardProps {
   label: string;
-  value: string;
-  subValue?: string;
-  change: number;
+  value: string | number;
+  subValue?: string | number;
+  change: number | string;
   icon: 'budget' | 'tools' | 'departments' | 'cost';
   className?: string;
 }
@@ -25,7 +25,6 @@ const iconColors = {
 export const KpiCard: React.FC<KpiCardProps> = props => {
   const { label, value, subValue, change, icon } = props;
   const Icon = icons[icon];
-  const isPositiveChange = change >= 0;
   return (
     <div
       className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4 ${props.className || ''}`}
@@ -45,14 +44,9 @@ export const KpiCard: React.FC<KpiCardProps> = props => {
           )}
         </div>
         <span
-          className={`inline-block mt-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
-            isPositiveChange
-              ? 'bg-green-100 text-green-700'
-              : 'bg-red-100 text-red-700'
-          }`}
+          className={`inline-block mt-2 text-xs font-semibold px-2 py-0.5 rounded-full ${iconColors[icon]} text-white `}
         >
-          {isPositiveChange ? '+' : ''}
-          {change}%
+          {change}
         </span>
       </div>
     </div>

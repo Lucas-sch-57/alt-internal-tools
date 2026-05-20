@@ -108,8 +108,29 @@ export const mockTools: Tool[] = [
 ];
 
 export const mockKpis = {
-  monthlyBudget: { value: 28750, target: 30000, change: 12 },
-  activeTools: { value: 147, change: 8 },
-  departments: { value: 8, change: 2 },
-  costPerUser: { value: 156, change: -12 },
+  monthlyBudget: {
+    label: 'Monthly Budget',
+    value: '€28,750',
+    target: '€30k',
+    change: '+12%',
+    icon: 'budget' as const,
+  },
+  activeTools: {
+    label: 'Active Tools',
+    value: 147,
+    change: '+8',
+    icon: 'tools' as const,
+  },
+  departments: {
+    label: 'Departments',
+    value: 8,
+    change: '+2',
+    icon: 'departments' as const,
+  },
+  costPerUser: {
+    label: 'Cost Per User',
+    value: '€156',
+    change: '€-12',
+    icon: 'cost' as const,
+  },
 };

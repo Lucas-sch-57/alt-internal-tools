@@ -31,21 +31,14 @@ const Dashboard = () => {
         {/* KPI Cards */}
         {/* Mobile: 1 col | Tablet: 2 cols | Desktop: 4 cols */}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {kpiConfig.map(({ key, label, icon }) => {
-            const kpi = mockKpis[key as keyof typeof mockKpis];
-
+          {Object.entries(mockKpis).map(([key, kpi]) => {
             return (
               <KpiCard
                 key={key}
-                label={label}
+                label={kpi.label}
+                value={kpi.value}
                 change={kpi.change}
-                value={`€${kpi.value.toLocaleString()}`}
-                subValue={
-                  'target' in kpi
-                    ? `€${kpi.target.toLocaleString()}`
-                    : undefined
-                }
-                icon={icon}
+                icon={kpi.icon}
               />
             );
           })}
