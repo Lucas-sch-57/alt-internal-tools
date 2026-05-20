@@ -59,10 +59,12 @@ PORT=3333
 HOST=localhost
 NODE_ENV=development
 DB_HOST=localhost
-DB_PORT=3306
-DB_USER=dev
-DB_PASSWORD=dev123
-DB_DATABASE=internal_tools
+MYSQL_ROOT_PASSWORD=root123secure
+MYSQL_DATABASE=internal_tools
+MYSQL_USER=dev
+MYSQL_PASSWORD=dev123
+MYSQL_PORT=3306
+PHPMYADMIN_PORT=8080
 ```
 
 # Available Endpoints
