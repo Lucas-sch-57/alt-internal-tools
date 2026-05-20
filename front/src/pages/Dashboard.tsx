@@ -1,36 +1,58 @@
 import { KpiCard } from '../components/KpiCard';
+import Navbar from '../components/layouts/Navbar';
 import { mockKpis } from '../datas/mock';
+
+const kpiConfig = [
+  { key: 'monthlyBudget', label: 'Monthly Budget', icon: 'budget' as const },
+  { key: 'activeTools', label: 'Active Tools', icon: 'tools' as const },
+  { key: 'departments', label: 'Departments', icon: 'departments' as const },
+  { key: 'costPerUser', label: 'Cost/User', icon: 'cost' as const },
+];
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col gap-8 h-screen p-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">Internal Tools Dashboard</h1>
-        <p className="text-base text-gray-400">
-          Monitor and manage your organization's software tools and expenses
-        </p>
-      </div>
-      <div className="flex justify-between items-center gap-6">
-        {Object.entries(mockKpis).map(([key, kpi]) => (
-          <KpiCard
-            key={key}
-            label={key}
-            change={kpi.change}
-            value={kpi.value.toString()}
-            icon={
-              key === 'monthlyBudget'
-                ? 'budget'
-                : key === 'activeTools'
-                  ? 'tools'
-                  : key === 'departments'
-                    ? 'departments'
-                    : 'cost'
-            }
-            className="w-full"
-          />
-        ))}
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+
+      <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
+        {/* Header */}
+        <header className="flex flex-col gap-1">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
+            Internal Tools Dashboard
+          </h1>
+
+          <p className="text-sm sm:text-base text-gray-500 max-w-2xl">
+            Monitor and manage your organization's software tools and expenses
+          </p>
+        </header>
+
+        {/* KPI Cards */}
+        {/* Mobile: 1 col | Tablet: 2 cols | Desktop: 4 cols */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          {kpiConfig.map(({ key, label, icon }) => {
+            const kpi = mockKpis[key as keyof typeof mockKpis];
+
+            return (
+              <KpiCard
+                key={key}
+                label={label}
+                change={kpi.change}
+                value={`€${kpi.value.toLocaleString()}`}
+                subValue={
+                  'target' in kpi
+                    ? `€${kpi.target.toLocaleString()}`
+                    : undefined
+                }
+                icon={icon}
+              />
+            );
+          })}
+        </section>
+
+        {/* Table section */}
+      </main>
     </div>
   );
 };
+
 export default Dashboard;
