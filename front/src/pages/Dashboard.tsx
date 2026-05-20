@@ -1,6 +1,8 @@
+import { Calendar } from 'lucide-react';
 import { KpiCard } from '../components/KpiCard';
 import Navbar from '../components/layouts/Navbar';
-import { mockKpis } from '../datas/mock';
+import ToolTable from '../components/table/ToolTable';
+import { mockKpis, mockTools } from '../datas/mock';
 
 const kpiConfig = [
   { key: 'monthlyBudget', label: 'Monthly Budget', icon: 'budget' as const },
@@ -50,6 +52,18 @@ const Dashboard = () => {
         </section>
 
         {/* Table section */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-8">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Recent Tools
+            </h2>
+            <div className="flex items-center gap-2">
+              <Calendar size={18} className="text-gray-500" />
+              <span className="text-sm text-gray-500">Last 30 days</span>
+            </div>
+          </div>
+          <ToolTable tools={mockTools} />
+        </div>
       </main>
     </div>
   );
