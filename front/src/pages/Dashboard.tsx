@@ -4,13 +4,6 @@ import Navbar from '../components/layouts/Navbar';
 import ToolTable from '../components/table/ToolTable';
 import { mockKpis, mockTools } from '../datas/mock';
 
-const kpiConfig = [
-  { key: 'monthlyBudget', label: 'Monthly Budget', icon: 'budget' as const },
-  { key: 'activeTools', label: 'Active Tools', icon: 'tools' as const },
-  { key: 'departments', label: 'Departments', icon: 'departments' as const },
-  { key: 'costPerUser', label: 'Cost/User', icon: 'cost' as const },
-];
-
 const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
