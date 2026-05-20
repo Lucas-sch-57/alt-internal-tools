@@ -1,4 +1,5 @@
 import type { Tool } from '../../types';
+import Badge from '../ui/Badge';
 
 type ToolTableProps = {
   tools: Tool[];
@@ -55,9 +56,7 @@ const ToolTable: React.FC<ToolTableProps> = ({ tools }) => {
               </td>
 
               <td className="px-6 py-5">
-                <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-                  {tool.status}
-                </span>
+                <Badge status={tool.status} />
               </td>
             </tr>
           ))}
