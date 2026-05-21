@@ -9,6 +9,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const navLinks = [
   { name: 'Dashboard', link: '/' },
@@ -37,13 +38,20 @@ const Navbar = () => {
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map(link => (
-              <a
+              <NavLink
                 key={link.name}
-                href={link.link}
-                className="text-sm font-medium text-gray-600 transition-colors hover:text-blue-600"
+                to={link.link}
+                end={link.link === '/'}
+                className={({ isActive }) =>
+                  `text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'text-blue-600'
+                      : 'text-gray-600 hover:text-blue-600'
+                  }`
+                }
               >
                 {link.name}
-              </a>
+              </NavLink>
             ))}
           </div>
         </div>
