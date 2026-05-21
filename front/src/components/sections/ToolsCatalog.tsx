@@ -1,12 +1,15 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useGetAll } from '../../hooks/tools/useTools';
 import { useToolStore } from '../../store/useToolStore';
 import TableSkeleton from '../ui/TableSkeleton';
 import ToolTable from '../ui/ToolTable';
+import type { Tool } from '../../types';
+import ToolModal from '../ui/ToolModal';
 
 const ToolsCatalog = () => {
   const { filters } = useToolStore();
   const { data: tools, isLoading, error } = useGetAll();
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
 
   const filtered = useMemo(() => {
     if (!tools) return [];
@@ -73,7 +76,15 @@ const ToolsCatalog = () => {
         </span>
       </div>
 
-      <ToolTable tools={filtered} showActions={true} />
+      <ToolTable
+        tools={filtered}
+        showActions={true}
+        onView={tool => setSelectedTool(tool)}
+      />
+
+      {selectedTool && (
+        <ToolModal tool={selectedTool} onClose={() => setSelectedTool(null)} />
+      )}
     </div>
   );
 };

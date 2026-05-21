@@ -22,11 +22,13 @@ type SortDir = 'asc' | 'desc';
 type ToolTableProps = {
   tools: Tool[];
   showActions?: boolean;
+  onView?: (tool: Tool) => void;
 };
 
 const ToolTable: React.FC<ToolTableProps> = ({
   tools,
   showActions = false,
+  onView,
 }) => {
   const [sortKey, setSortKey] = useState<SortKey>('name');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
@@ -159,7 +161,13 @@ const ToolTable: React.FC<ToolTableProps> = ({
 
                   {openMenu === tool.id && (
                     <div className="absolute right-6 top-12 z-10 bg-white border border-gray-200 rounded-xl shadow-lg py-1 w-40">
-                      <button className="w-full px-4 py-2.5 text-sm text-left text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                      <button
+                        className="w-full px-4 py-2.5 text-sm text-left text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                        onClick={() => {
+                          onView?.(tool);
+                          setOpenMenu(null);
+                        }}
+                      >
                         <Eye size={14} /> View
                       </button>
                       <button className="w-full px-4 py-2.5 text-sm text-left text-gray-700 hover:bg-gray-50 flex items-center gap-2">
