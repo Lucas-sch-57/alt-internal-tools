@@ -18,7 +18,9 @@ export const createToolSchema = z.object({
     ],
     { error: 'Please select a valid department' }
   ),
-  monthly_cost: z.coerce.number().min(0, 'Cost must be positive'),
+  monthly_cost: z.coerce
+    .number()
+    .min(0, 'Cost must be positive') as z.ZodType<number>,
   status: z.enum(['active', 'unused', 'expiring']).default('active'),
 });
 

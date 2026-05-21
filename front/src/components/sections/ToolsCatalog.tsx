@@ -5,7 +5,6 @@ import TableSkeleton from '../ui/TableSkeleton';
 import ToolTable from '../ui/ToolTable';
 import type { Tool } from '../../types';
 import ToolModal from '../ui/ToolModal';
-import CreateToolModal from '../ui/CreateToolModal';
 
 const ToolsCatalog = () => {
   const { filters } = useToolStore();
