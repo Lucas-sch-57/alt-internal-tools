@@ -12,6 +12,7 @@ import DetailItem from './DetailItem';
 import Badge from './Badge';
 import { normalizeStatus } from '../../utils/normalizeStatus';
 import DetailLabel from './DetailLabel';
+import BackdropBlur from './BackdropBlur';
 
 interface ToolModalProps {
   tool: Tool;
@@ -22,10 +23,7 @@ const ToolModal: React.FC<ToolModalProps> = props => {
   const { tool, onClose } = props;
   return (
     <>
-      <div
-        className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
-        onClick={onClose}
-      ></div>
+      <BackdropBlur handleClick={onClose} />
 
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div
