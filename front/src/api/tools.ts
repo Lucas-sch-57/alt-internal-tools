@@ -1,5 +1,6 @@
 import apiClient from './client';
 import type { Tool } from '../types';
+import type { ToolFormData } from '../validators/tools';
 
 export const toolsApi = {
   getAll: (params?: Record<string, any>) =>
@@ -16,4 +17,7 @@ export const toolsApi = {
 
   getByStatus: (status: Tool['status']) =>
     apiClient.get<Tool[]>('/tools', { params: { status } }).then(r => r.data),
+
+  create: (payload: ToolFormData) =>
+    apiClient.post<Tool>('/tools', payload).then(r => r.data),
 };
