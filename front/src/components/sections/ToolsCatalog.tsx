@@ -10,7 +10,6 @@ const ToolsCatalog = () => {
   const { filters } = useToolStore();
   const { data: tools, isLoading, error } = useGetAll();
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
-
   const filtered = useMemo(() => {
     if (!tools) return [];
     return tools.filter(tool => {

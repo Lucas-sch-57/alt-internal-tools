@@ -11,7 +11,10 @@ interface ToolFilters {
 
 interface ToolStore {
   filters: ToolFilters;
-  setFilter: (key: keyof ToolFilters, value: any) => void;
+  setFilter: <K extends keyof ToolFilters>(
+    key: K,
+    value: ToolFilters[K]
+  ) => void;
   resetFilters: () => void;
   selectedTools: number[];
   toggleSelect: (id: number) => void;
@@ -21,18 +24,24 @@ interface ToolStore {
 
 export const useToolStore = create<ToolStore>(set => ({
   filters: {},
+
   setFilter: (key, value) =>
     set(state => ({
       filters: { ...state.filters, [key]: value === '' ? undefined : value },
     })),
+
   resetFilters: () => set({ filters: {} }),
+
   selectedTools: [],
+
   toggleSelect: id =>
     set(state => ({
       selectedTools: state.selectedTools.includes(id)
         ? state.selectedTools.filter(i => i !== id)
         : [...state.selectedTools, id],
     })),
+
   selectAll: ids => set({ selectedTools: ids }),
+  
   clearSelection: () => set({ selectedTools: [] }),
 }));
