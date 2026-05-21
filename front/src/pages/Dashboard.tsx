@@ -1,8 +1,6 @@
 import { Calendar } from 'lucide-react';
-import { KpiCard } from '../components/KpiCard';
 import Navbar from '../components/layouts/Navbar';
-import ToolTable from '../components/table/ToolTable';
-import { mockKpis, mockTools } from '../datas/mock';
+import KpiSection from '../components/sections/KpisSection';
 
 const Dashboard = () => {
   return (
@@ -23,19 +21,7 @@ const Dashboard = () => {
 
         {/* KPI Cards */}
         {/* Mobile: 1 col | Tablet: 2 cols | Desktop: 4 cols */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {Object.entries(mockKpis).map(([key, kpi]) => {
-            return (
-              <KpiCard
-                key={key}
-                label={kpi.label}
-                value={kpi.value}
-                change={kpi.change}
-                icon={kpi.icon}
-              />
-            );
-          })}
-        </section>
+        <KpiSection />
 
         {/* Table section */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-8">
@@ -48,7 +34,6 @@ const Dashboard = () => {
               <span className="text-sm text-gray-500">Last 30 days</span>
             </div>
           </div>
-          <ToolTable tools={mockTools} />
         </div>
       </main>
     </div>
