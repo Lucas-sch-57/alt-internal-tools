@@ -7,12 +7,12 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import type { Tool } from '../../types';
-import DetailItem from './DetailItem';
-import Badge from './Badge';
-import { normalizeStatus } from '../../utils/normalizeStatus';
-import DetailLabel from './DetailLabel';
-import BackdropBlur from './BackdropBlur';
+import type { Tool } from '../../../types';
+import DetailItem from '../DetailItem';
+import Badge from '../Badge';
+import { normalizeStatus } from '../../../utils/normalizeStatus';
+import DetailLabel from '../DetailLabel';
+import BackdropBlur from '../BackdropBlur';
 
 interface ToolModalProps {
   tool: Tool;

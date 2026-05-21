@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ToolsSidebar from '../components/ui/ToolsSidebar';
 import { Plus, SlidersHorizontal } from 'lucide-react';
 import ToolsCatalog from '../components/sections/ToolsCatalog';
-import CreateToolModal from '../components/ui/CreateToolModal';
+import CreateToolModal from '../components/ui/tools/CreateToolModal';
 
 const Tools = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 import { Calendar } from 'lucide-react';
 import { useRecentTools } from '../../hooks/tools/useTools';
 import TableSkeleton from '../ui/TableSkeleton';
-import ToolTable from '../ui/ToolTable';
+import ToolTable from '../ui/tools/ToolTable';
 
 const RecentToolsSection = () => {
   const { data: tools, isLoading, isError } = useRecentTools();
