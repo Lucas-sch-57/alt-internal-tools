@@ -4,6 +4,7 @@ import { Plus, SlidersHorizontal } from 'lucide-react';
 import ToolsCatalog from '../components/sections/ToolsCatalog';
 import CreateToolModal from '../components/ui/tools/CreateToolModal';
 import ToolsSidebar from '../components/ui/tools/ToolsSidebar';
+import PageHeader from '@/components/ui/PageHeader';
 
 const Tools = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -28,15 +29,10 @@ const Tools = () => {
         <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col gap-6">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
-                Tools Catalog
-              </h1>
-              <p className="text-sm text-gray-500 mt-1">
-                Manage and monitor your organization's software tools
-              </p>
-            </div>
-
+            <PageHeader
+              title="Tools Catalog"
+              subtitle="Manage and all your tools and easily find the one you want"
+            />
             <div className="flex items-center gap-3">
               {/* Filters toggle — mobile only */}
               <button
