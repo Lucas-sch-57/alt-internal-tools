@@ -8,6 +8,7 @@ import FormField from '../forms/FormField';
 import FormInput from '../forms/FormInput';
 import FormSelect, { type Option } from '../forms/FormSelect';
 import { CATEGORIES, DEPARTMENTS, STATUSES } from '../../constants/tools';
+import { toast } from 'sonner';
 interface CreateToolModalProps {
   onClose: () => void;
 }
@@ -22,7 +23,12 @@ const CreateToolModal: React.FC<CreateToolModalProps> = props => {
     },
   });
 
-  const createMutation = useCreateTool(onClose);
+  const createMutation = useCreateTool(() => {
+    onClose();
+    toast.success('Create tool success', {
+      description: 'The tool has been successfully created',
+    });
+  });
   const onSubmit = async (data: ToolFormData) => createMutation.mutate(data);
 
   const categoriesOptions: Option[] = CATEGORIES.map(c => {
