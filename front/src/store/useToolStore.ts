@@ -6,6 +6,7 @@ interface ToolFilters {
   min_cost?: number;
   max_cost?: number;
   category?: string;
+  search?: string;
 }
 
 interface ToolStore {

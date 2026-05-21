@@ -15,3 +15,10 @@ export function useRecentTools() {
     queryFn: () => toolsApi.getRecent(),
   });
 }
+
+export function useGetAll() {
+  return useQuery({
+    queryKey: ['tools'],
+    queryFn: () => toolsApi.getAll(),
+  });
+}
