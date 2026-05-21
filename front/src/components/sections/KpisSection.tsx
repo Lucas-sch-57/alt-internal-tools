@@ -1,7 +1,7 @@
-import { useAnalytics } from '../../hooks/analytics/useGetAnalytics';
-import { useDepartmentsCount } from '../../hooks/departments/useDepartments';
-import { useActiveToolsCount } from '../../hooks/tools/useTools';
-import { buildKpis } from '../../utils/buildKpis';
+import { useAnalytics } from '@/hooks/analytics/useGetAnalytics';
+import { useDepartmentsCount } from '@/hooks/departments/useDepartments';
+import { useActiveToolsCount } from '@/hooks/tools/useTools';
+import { buildKpis } from '@/utils/buildKpis';
 import { KpiCard } from '../KpiCard';
 import KpiSkeleton from '../ui/KpiSkeleton';
 

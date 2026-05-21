@@ -1,4 +1,4 @@
-import type { Analytics } from '../types';
+import type { Analytics } from '@/types';
 
 export function buildKpis(
   data: Analytics,

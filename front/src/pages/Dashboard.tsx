@@ -1,5 +1,5 @@
-import KpiSection from '../components/sections/KpisSection';
-import RecentToolsSection from '../components/sections/RecentToolsSection';
+import KpiSection from '@/components/sections/KpisSection';
+import RecentToolsSection from '@/components/sections/RecentToolsSection';
 
 const Dashboard = () => {
   return (

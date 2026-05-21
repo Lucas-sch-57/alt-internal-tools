@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
-import { useGetAll } from '../../hooks/tools/useTools';
-import { useToolStore } from '../../store/useToolStore';
-import TableSkeleton from '../ui/TableSkeleton';
-import ToolTable from '../ui/tools/ToolTable';
-import type { Tool } from '../../types';
-import ToolModal from '../ui/tools/ToolModal';
+import { useGetAll } from '@/hooks/tools/useTools';
+import { useToolStore } from '@/store/useToolStore';
+import TableSkeleton from '@/components/ui/TableSkeleton';
+import ToolTable from '@/components/ui/tools/ToolTable';
+import type { Tool } from '@/types';
+import ToolModal from '@/components/ui/tools/ToolModal';
 
 const ToolsCatalog = () => {
   const { filters } = useToolStore();

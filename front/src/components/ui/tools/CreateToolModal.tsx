@@ -1,13 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createToolSchema, type ToolFormData } from '../../../validators/tools';
+import { createToolSchema, type ToolFormData } from '@/validators/tools';
 import BackdropBlur from '../BackdropBlur';
 import { FormProvider, useForm, type Resolver } from 'react-hook-form';
-import { useCreateTool } from '../../../hooks/tools/useCreateTool';
+import { useCreateTool } from '@/hooks/tools/useCreateTool';
 import { Loader2, X } from 'lucide-react';
-import FormField from '../../forms/FormField';
-import FormInput from '../../forms/FormInput';
-import FormSelect, { type Option } from '../../forms/FormSelect';
-import { CATEGORIES, DEPARTMENTS, STATUSES } from '../../../constants/tools';
+import FormField from '@/components/forms/FormField';
+import FormInput from '@/components/forms/FormInput';
+import FormSelect, { type Option } from '@/components/forms/FormSelect';
+import { CATEGORIES, DEPARTMENTS, STATUSES } from '@/constants/tools';
 import { toast } from 'sonner';
 interface CreateToolModalProps {
   onClose: () => void;

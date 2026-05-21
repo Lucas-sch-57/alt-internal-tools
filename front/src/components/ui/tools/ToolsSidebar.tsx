@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
-import { CATEGORIES, DEPARTMENTS, STATUSES } from '../../constants/tools';
-import { useToolStore } from '../../store/useToolStore';
+import { CATEGORIES, DEPARTMENTS, STATUSES } from '@/constants/tools';
+import { useToolStore } from '@/store/useToolStore';
 
 const ToolsSidebar = () => {
   const { filters, setFilter, resetFilters } = useToolStore();

@@ -8,10 +8,10 @@ import {
   Trash2,
 } from 'lucide-react';
 import { useState } from 'react';
-import type { Tool } from '../../../types';
+import type { Tool } from '@/types';
 import Badge from '../Badge';
-import { normalizeStatus } from '../../../utils/normalizeStatus';
-import { useToolStore } from '../../../store/useToolStore';
+import { normalizeStatus } from '@/utils/normalizeStatus';
+import { useToolStore } from '@/store/useToolStore';
 
 type SortKey =
   | 'name'

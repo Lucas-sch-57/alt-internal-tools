@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Tools from './pages/Tools';
-import NavbarLayout from './components/layouts/NavbarLayout';
+import Dashboard from '@/pages/Dashboard';
+import Tools from '@/pages/Tools';
+import NavbarLayout from '@/components/layouts/NavbarLayout';
 
 function App() {
   return (
