@@ -8,3 +8,10 @@ export function useActiveToolsCount() {
       toolsApi.getAll({ status: 'active' }).then(data => data.length),
   });
 }
+
+export function useRecentTools() {
+  return useQuery({
+    queryKey: ['tools', 'recent'],
+    queryFn: () => toolsApi.getRecent(),
+  });
+}

@@ -11,7 +11,6 @@ const KpiSection = () => {
     useActiveToolsCount();
   const { data: departmentsCount, isLoading: deptLoading } =
     useDepartmentsCount();
-  console.log(analytics);
 
   const isLoading = analyticsLoading || toolsLoading || deptLoading;
 
