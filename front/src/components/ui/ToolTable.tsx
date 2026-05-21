@@ -110,7 +110,13 @@ const ToolTable: React.FC<ToolTableProps> = ({
               {/* Tool */}
               <td className="px-6 py-4">
                 <div className="flex items-center gap-3">
-                  {tool.icon_url && <img src={tool.icon_url} alt={tool.name} />}
+                  {tool.icon_url && (
+                    <img
+                      src={tool.icon_url}
+                      alt={tool.name}
+                      className="w-6 h-auto"
+                    />
+                  )}
                   <span className="text-sm font-medium text-gray-900">
                     {tool.name}
                   </span>
