@@ -28,11 +28,13 @@ const ToolsCatalog = () => {
           tool.active_users_count,
           tool.status,
           tool.monthly_cost,
-        ].some(field =>
-          typeof field == 'string'
-            ? field?.toLowerCase().includes(search)
-            : field.toString().includes(search)
-        );
+        ].some(field => {
+          if (field !== undefined) {
+            return typeof field == 'string'
+              ? field?.toLowerCase().includes(search)
+              : field.toString().includes(search);
+          }
+        });
 
       return (
         matchesSearch &&
