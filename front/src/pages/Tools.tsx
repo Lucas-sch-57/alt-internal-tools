@@ -2,9 +2,11 @@ import { useState } from 'react';
 import ToolsSidebar from '../components/ui/ToolsSidebar';
 import { Plus, SlidersHorizontal } from 'lucide-react';
 import ToolsCatalog from '../components/sections/ToolsCatalog';
+import CreateToolModal from '../components/ui/CreateToolModal';
 
 const Tools = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const [createdModalOpen, setCreateModalOpen] = useState<boolean>(false);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -45,7 +47,10 @@ const Tools = () => {
               </button>
 
               {/* Add tool */}
-              <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors min-h-11">
+              <button
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors min-h-11 cursor-pointer"
+                onClick={() => setCreateModalOpen(true)}
+              >
                 <Plus size={16} />
                 Add Tool
               </button>
@@ -54,6 +59,9 @@ const Tools = () => {
 
           {/* Catalog */}
           <ToolsCatalog />
+          {createdModalOpen && (
+            <CreateToolModal onClose={() => setCreateModalOpen(false)} />
+          )}
         </main>
       </div>
     </div>
