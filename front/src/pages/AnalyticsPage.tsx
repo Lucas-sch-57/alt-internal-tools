@@ -1,6 +1,7 @@
 import BudgetProgressCard from '@/components/ui/analytics/charts/BudgetProgressCard';
 import DepartmentActivityChart from '@/components/ui/analytics/charts/DepartmentActivityChart';
 import DepartmentCostBreakdownChart from '@/components/ui/analytics/charts/DepartmentCostBreakdownChart';
+import GrowthTrendsChart from '@/components/ui/analytics/charts/GrowthTrendsChart';
 import MonthlySpendEvolutionChart from '@/components/ui/analytics/charts/MonthlySpendEvolutionChart';
 import TopExpensiveToolsChart from '@/components/ui/analytics/charts/TopExpensiveToolsChart';
 import UsageRankingChart from '@/components/ui/analytics/charts/UsageRankingChart';
@@ -13,6 +14,7 @@ import { useGetAllUsers } from '@/hooks/users/useUsers';
 import { mapBudgetComparaison } from '@/utils/mapBudgetComparaison';
 import { mapDepartmentActivity } from '@/utils/mapDepartmentActivity';
 import { mapDepartmentCost } from '@/utils/mapDepartmentCosts';
+import { mapGrowthTrends } from '@/utils/mapGrowthTrends';
 import { mapTopExpensiveTools } from '@/utils/mapTopExpensiveTools';
 import { mapUsageRanking } from '@/utils/mapUsageRanking';
 import { mapUserAdoption } from '@/utils/mapUserAdoption';
@@ -52,6 +54,7 @@ const AnalyticsPage = () => {
   const userAdoptionData = mapUserAdoption(tools, users.length);
   const usageRankingData = mapUsageRanking(tools);
   const departmentsActivityData = mapDepartmentActivity(users, departments);
+  const growthTrendsData = mapGrowthTrends(tools);
 
   return (
     <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
@@ -76,6 +79,7 @@ const AnalyticsPage = () => {
       <UserAdoptionChart data={userAdoptionData} totalUsers={users.length} />
       <UsageRankingChart data={usageRankingData} />
       <DepartmentActivityChart data={departmentsActivityData} />
+      <GrowthTrendsChart data={growthTrendsData} />
     </main>
   );
 };
