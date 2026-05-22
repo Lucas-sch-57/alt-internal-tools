@@ -28,7 +28,7 @@ const DepartmentActivityChart: React.FC<DepartmentActivityProps> = props => {
 
         <p className="text-sm text-gray-500">Active users by department</p>
       </div>
-      <div className="h-[320px] w-full">
+      <div className="h-80 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />

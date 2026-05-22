@@ -42,7 +42,7 @@ const RoiMetricCard: React.FC<RoiMetricProps> = props => {
       </div>
 
       <Link
-        to={`/tools/${metric.id}`}
+        to={`/tools?toolId=${metric.id}`}
         className="text-sm font-medium text-blue-600 hover:text-blue-700"
       >
         View tool details

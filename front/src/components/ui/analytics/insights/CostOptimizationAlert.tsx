@@ -39,7 +39,7 @@ const CostOptimizationAlert: React.FC<CostOptimizationAlertProps> = props => {
       </div>
 
       <Link
-        to={`/tools/${alert.id}`}
+        to={`/tools?toolId=${alert.id}`}
         className="text-sm font-medium text-amber-700 hover:text-amber-800"
       >
         View tool details

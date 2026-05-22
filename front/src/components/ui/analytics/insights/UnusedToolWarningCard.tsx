@@ -38,7 +38,7 @@ const UnusedToolWarningCard: React.FC<UnusedToolWarningProps> = props => {
       </div>
 
       <Link
-        to={`/tools`}
+        to={`/tools?toolId=${tool.id}`}
         className="text-sm font-medium text-red-700 hover:text-red-800"
       >
         View tool details

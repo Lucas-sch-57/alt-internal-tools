@@ -1,15 +1,30 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useGetAll } from '@/hooks/tools/useTools';
 import { useToolStore } from '@/store/useToolStore';
 import TableSkeleton from '@/components/ui/TableSkeleton';
 import ToolTable from '@/components/ui/tools/ToolTable';
 import type { Tool } from '@/types';
 import ToolModal from '@/components/ui/tools/ToolModal';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const ToolsCatalog = () => {
   const { filters } = useToolStore();
   const { data: tools, isLoading, error } = useGetAll();
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const toolId = searchParams.get('toolId');
+
+  useEffect(() => {
+    if (!toolId || !tools) return;
+
+    const tool = tools.find(t => t.id === Number(toolId));
+
+    if (tool) {
+      setSelectedTool(tool);
+    }
+  }, [toolId, tools]);
+
   const filtered = useMemo(() => {
     if (!tools) return [];
     return tools.filter(tool => {
@@ -84,7 +99,16 @@ const ToolsCatalog = () => {
       />
 
       {selectedTool && (
-        <ToolModal tool={selectedTool} onClose={() => setSelectedTool(null)} />
+        <ToolModal
+          tool={selectedTool}
+          onClose={() => {
+            setSelectedTool(null);
+            if (searchParams.get('toolId')) {
+              setSearchParams({});
+              navigate('/analytics');
+            }
+          }}
+        />
       )}
     </div>
   );
