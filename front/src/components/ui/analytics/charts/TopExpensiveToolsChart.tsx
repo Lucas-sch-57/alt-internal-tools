@@ -26,7 +26,7 @@ const TopExpensiveToolsChart: React.FC<TopExpensiveProps> = props => {
         <p className="text-sm text-gray-500">Highest monthly tools costs</p>
       </div>
 
-      <div className="h-[350px] w-full">
+      <div className="h-87.5 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical">
             <CartesianGrid
