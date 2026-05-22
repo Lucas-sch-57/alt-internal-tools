@@ -1,10 +1,12 @@
 import DepartmentCostBreakdownChart from '@/components/ui/analytics/charts/DepartmentCostBreakdownChart';
 import MonthlySpendEvolutionChart from '@/components/ui/analytics/charts/MonthlySpendEvolutionChart';
+import TopExpensiveToolsChart from '@/components/ui/analytics/charts/TopExpensiveToolsChart';
 import PageHeader from '@/components/ui/PageHeader';
 import { useAnalytics } from '@/hooks/analytics/useGetAnalytics';
 import { useGetAll } from '@/hooks/tools/useTools';
 import { mapBudgetComparaison } from '@/utils/mapBudgetComparaison';
 import { mapDepartmentCost } from '@/utils/mapDepartmentCosts';
+import { mapTopExpensiveTools } from '@/utils/mapTopExpensiveTools';
 const AnalyticsPage = () => {
   const analyticsQuery = useAnalytics();
   const toolsQuery = useGetAll();
@@ -24,6 +26,7 @@ const AnalyticsPage = () => {
 
   const monthlyCostBudgetData = mapBudgetComparaison(analytics);
   const departmentCostData = mapDepartmentCost(tools);
+  const topExpensiveData = mapTopExpensiveTools(tools);
 
   return (
     <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
@@ -38,6 +41,7 @@ const AnalyticsPage = () => {
         />
         <DepartmentCostBreakdownChart costData={departmentCostData} />
       </div>
+      <TopExpensiveToolsChart data={topExpensiveData} />
     </main>
   );
 };
