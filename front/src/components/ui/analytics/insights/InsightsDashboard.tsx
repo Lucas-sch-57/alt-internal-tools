@@ -1,4 +1,5 @@
 import CostOptimizationAlert from './CostOptimizationAlert';
+import UnusedToolWarningCard from './UnusedToolWarningCard';
 
 interface InsightsDashboardProps {
   costAlerts: {
@@ -8,10 +9,18 @@ interface InsightsDashboardProps {
     users: number;
     status?: string;
   }[];
+
+  unusedTools: {
+    id: number;
+    name: string;
+    cost: number;
+    users: number;
+    status?: string;
+  }[];
 }
 
 const InsightsDashboard: React.FC<InsightsDashboardProps> = props => {
-  const { costAlerts } = props;
+  const { costAlerts, unusedTools } = props;
 
   return (
     <section className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
@@ -24,10 +33,22 @@ const InsightsDashboard: React.FC<InsightsDashboardProps> = props => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {costAlerts.map(alert => (
-          <CostOptimizationAlert key={alert.id} alert={alert} />
-        ))}
+      <div className="flex flex-col gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {costAlerts.map(alert => (
+            <CostOptimizationAlert key={alert.id} alert={alert} />
+          ))}
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold text-gray-900 mb-3">
+            Unused Tools Warnings
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {unusedTools.map(tool => (
+              <UnusedToolWarningCard key={tool.id} tool={tool} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
