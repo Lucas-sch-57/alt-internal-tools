@@ -1,3 +1,4 @@
+import BudgetProgressCard from '@/components/ui/analytics/charts/BudgetProgressCard';
 import DepartmentCostBreakdownChart from '@/components/ui/analytics/charts/DepartmentCostBreakdownChart';
 import MonthlySpendEvolutionChart from '@/components/ui/analytics/charts/MonthlySpendEvolutionChart';
 import TopExpensiveToolsChart from '@/components/ui/analytics/charts/TopExpensiveToolsChart';
@@ -42,6 +43,12 @@ const AnalyticsPage = () => {
         <DepartmentCostBreakdownChart costData={departmentCostData} />
       </div>
       <TopExpensiveToolsChart data={topExpensiveData} />
+      <BudgetProgressCard
+        current={analytics.budget_overview.current_month_total}
+        limit={analytics.budget_overview.monthly_limit}
+        trend={analytics.budget_overview.trend_percentage}
+        utilization={analytics.budget_overview.budget_utilization}
+      />
     </main>
   );
 };
