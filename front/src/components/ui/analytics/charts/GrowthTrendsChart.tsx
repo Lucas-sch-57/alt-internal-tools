@@ -28,7 +28,7 @@ const GrowthTrendsChart: React.FC<GrowthTrendsProps> = ({ data }) => {
       </div>
 
       {/* Chart */}
-      <div className="h-[320px] w-full">
+      <div className="h-80 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data}>
             <defs>

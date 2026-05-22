@@ -11,7 +11,7 @@ import PageHeader from '@/components/ui/PageHeader';
 import { useAnalytics } from '@/hooks/analytics/useGetAnalytics';
 import { useGetAllDepartments } from '@/hooks/departments/useDepartments';
 import { useGetAll } from '@/hooks/tools/useTools';
-import { useGetAllUsers } from '@/hooks/users/useUsers';
+import { useGetAllUsers, useGetUserTools } from '@/hooks/users/useUsers';
 import { mapBudgetComparaison } from '@/utils/mapBudgetComparaison';
 import { mapCostOptimizationAlerts } from '@/utils/mapCostOptimizationAlerts';
 import { mapDepartmentActivity } from '@/utils/mapDepartmentActivity';
@@ -20,6 +20,7 @@ import { mapGrowthTrends } from '@/utils/mapGrowthTrends';
 import { mapRoiMetrics } from '@/utils/mapRoiMetrics';
 import { mapTopExpensiveTools } from '@/utils/mapTopExpensiveTools';
 import { mapUnusedTools } from '@/utils/mapUnsusedTools';
+import { mapUsagePatterns } from '@/utils/mapUsagePatterns';
 import { mapUsageRanking } from '@/utils/mapUsageRanking';
 import { mapUserAdoption } from '@/utils/mapUserAdoption';
 const AnalyticsPage = () => {
@@ -27,22 +28,26 @@ const AnalyticsPage = () => {
   const toolsQuery = useGetAll();
   const usersQuery = useGetAllUsers();
   const departmentsQuery = useGetAllDepartments();
+  const userToolsQuery = useGetUserTools();
 
   const tools = toolsQuery.data!;
   const analytics = analyticsQuery.data!;
   const users = usersQuery.data!;
   const departments = departmentsQuery.data!;
+  const userTools = userToolsQuery.data!;
 
   const isLoading =
     analyticsQuery.isLoading ||
     toolsQuery.isLoading ||
     usersQuery.isLoading ||
-    departmentsQuery.isLoading;
+    departmentsQuery.isLoading ||
+    userToolsQuery.isLoading;
   const isError =
     analyticsQuery.isError ||
     toolsQuery.isError ||
     usersQuery.isError ||
-    departmentsQuery.isError;
+    departmentsQuery.isError ||
+    userToolsQuery.isError;
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -62,6 +67,7 @@ const AnalyticsPage = () => {
   const costOptimizationsData = mapCostOptimizationAlerts(tools);
   const unusedToolsData = mapUnusedTools(tools);
   const roiMetrics = mapRoiMetrics(tools);
+  const usagePatternData = mapUsagePatterns(userTools);
 
   return (
     <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
@@ -91,6 +97,7 @@ const AnalyticsPage = () => {
         costAlerts={costOptimizationsData}
         unusedTools={unusedToolsData}
         roiMetrics={roiMetrics}
+        usagePatterns={usagePatternData}
       />
     </main>
   );

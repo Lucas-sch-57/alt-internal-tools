@@ -7,3 +7,9 @@ export function useGetAllUsers() {
     queryFn: () => usersApi.getAll(),
   });
 }
+export function useGetUserTools() {
+  return useQuery({
+    queryKey: ['users', 'tools'],
+    queryFn: () => usersApi.getTools(),
+  });
+}
