@@ -17,6 +17,7 @@ import { mapCostOptimizationAlerts } from '@/utils/mapCostOptimizationAlerts';
 import { mapDepartmentActivity } from '@/utils/mapDepartmentActivity';
 import { mapDepartmentCost } from '@/utils/mapDepartmentCosts';
 import { mapGrowthTrends } from '@/utils/mapGrowthTrends';
+import { mapRoiMetrics } from '@/utils/mapRoiMetrics';
 import { mapTopExpensiveTools } from '@/utils/mapTopExpensiveTools';
 import { mapUnusedTools } from '@/utils/mapUnsusedTools';
 import { mapUsageRanking } from '@/utils/mapUsageRanking';
@@ -31,8 +32,6 @@ const AnalyticsPage = () => {
   const analytics = analyticsQuery.data!;
   const users = usersQuery.data!;
   const departments = departmentsQuery.data!;
-
-  console.log(tools);
 
   const isLoading =
     analyticsQuery.isLoading ||
@@ -62,6 +61,7 @@ const AnalyticsPage = () => {
   const growthTrendsData = mapGrowthTrends(tools);
   const costOptimizationsData = mapCostOptimizationAlerts(tools);
   const unusedToolsData = mapUnusedTools(tools);
+  const roiMetrics = mapRoiMetrics(tools);
 
   return (
     <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
@@ -90,6 +90,7 @@ const AnalyticsPage = () => {
       <InsightsDashboard
         costAlerts={costOptimizationsData}
         unusedTools={unusedToolsData}
+        roiMetrics={roiMetrics}
       />
     </main>
   );
