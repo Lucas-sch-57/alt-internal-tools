@@ -1,4 +1,5 @@
 import BudgetProgressCard from '@/components/ui/analytics/charts/BudgetProgressCard';
+import DepartmentActivityChart from '@/components/ui/analytics/charts/DepartmentActivityChart';
 import DepartmentCostBreakdownChart from '@/components/ui/analytics/charts/DepartmentCostBreakdownChart';
 import MonthlySpendEvolutionChart from '@/components/ui/analytics/charts/MonthlySpendEvolutionChart';
 import TopExpensiveToolsChart from '@/components/ui/analytics/charts/TopExpensiveToolsChart';
@@ -6,9 +7,11 @@ import UsageRankingChart from '@/components/ui/analytics/charts/UsageRankingChar
 import UserAdoptionChart from '@/components/ui/analytics/charts/UserAdoptionChart';
 import PageHeader from '@/components/ui/PageHeader';
 import { useAnalytics } from '@/hooks/analytics/useGetAnalytics';
+import { useGetAllDepartments } from '@/hooks/departments/useDepartments';
 import { useGetAll } from '@/hooks/tools/useTools';
 import { useGetAllUsers } from '@/hooks/users/useUsers';
 import { mapBudgetComparaison } from '@/utils/mapBudgetComparaison';
+import { mapDepartmentActivity } from '@/utils/mapDepartmentActivity';
 import { mapDepartmentCost } from '@/utils/mapDepartmentCosts';
 import { mapTopExpensiveTools } from '@/utils/mapTopExpensiveTools';
 import { mapUsageRanking } from '@/utils/mapUsageRanking';
@@ -17,15 +20,23 @@ const AnalyticsPage = () => {
   const analyticsQuery = useAnalytics();
   const toolsQuery = useGetAll();
   const usersQuery = useGetAllUsers();
+  const departmentsQuery = useGetAllDepartments();
 
   const tools = toolsQuery.data!;
   const analytics = analyticsQuery.data!;
   const users = usersQuery.data!;
+  const departments = departmentsQuery.data!;
 
   const isLoading =
-    analyticsQuery.isLoading || toolsQuery.isLoading || usersQuery.isLoading;
+    analyticsQuery.isLoading ||
+    toolsQuery.isLoading ||
+    usersQuery.isLoading ||
+    departmentsQuery.isLoading;
   const isError =
-    analyticsQuery.isError || toolsQuery.isError || usersQuery.isError;
+    analyticsQuery.isError ||
+    toolsQuery.isError ||
+    usersQuery.isError ||
+    departmentsQuery.isError;
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -40,6 +51,7 @@ const AnalyticsPage = () => {
   const topExpensiveData = mapTopExpensiveTools(tools);
   const userAdoptionData = mapUserAdoption(tools, users.length);
   const usageRankingData = mapUsageRanking(tools);
+  const departmentsActivityData = mapDepartmentActivity(users, departments);
 
   return (
     <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
@@ -63,6 +75,7 @@ const AnalyticsPage = () => {
       />
       <UserAdoptionChart data={userAdoptionData} totalUsers={users.length} />
       <UsageRankingChart data={usageRankingData} />
+      <DepartmentActivityChart data={departmentsActivityData} />
     </main>
   );
 };

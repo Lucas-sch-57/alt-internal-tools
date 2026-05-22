@@ -7,3 +7,10 @@ export function useDepartmentsCount() {
     queryFn: () => departmentsApi.getAll().then(data => data.length),
   });
 }
+
+export function useGetAllDepartments() {
+  return useQuery({
+    queryKey: ['departments', 'all'],
+    queryFn: () => departmentsApi.getAll(),
+  });
+}
