@@ -1,6 +1,7 @@
 import CostOptimizationAlert from './CostOptimizationAlert';
 import RoiMetricCard from './RoiMetricCard';
 import UnusedToolWarningCard from './UnusedToolWarningCard';
+import UsageHeatmap from './UsageHeatmap';
 import UsagePatternCard from './UsagePatternCard';
 
 interface InsightsDashboardProps {
@@ -30,10 +31,15 @@ interface InsightsDashboardProps {
     label: string;
     value: number;
   }[];
+  usageHeatmap: {
+    day: string;
+    value: number;
+  }[];
 }
 
 const InsightsDashboard: React.FC<InsightsDashboardProps> = props => {
-  const { costAlerts, unusedTools, roiMetrics, usagePatterns } = props;
+  const { costAlerts, unusedTools, roiMetrics, usagePatterns, usageHeatmap } =
+    props;
 
   return (
     <section className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
@@ -77,7 +83,10 @@ const InsightsDashboard: React.FC<InsightsDashboardProps> = props => {
           <h4 className="text-sm font-semibold text-gray-900 mb-3">
             Usage Patterns
           </h4>
-          <UsagePatternCard data={usagePatterns} />
+          <div className="flex flex-col gap-4">
+            <UsagePatternCard data={usagePatterns} />
+            <UsageHeatmap data={usageHeatmap} />
+          </div>
         </div>
       </div>
     </section>

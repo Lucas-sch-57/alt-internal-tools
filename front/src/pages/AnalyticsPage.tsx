@@ -20,6 +20,7 @@ import { mapGrowthTrends } from '@/utils/mapGrowthTrends';
 import { mapRoiMetrics } from '@/utils/mapRoiMetrics';
 import { mapTopExpensiveTools } from '@/utils/mapTopExpensiveTools';
 import { mapUnusedTools } from '@/utils/mapUnsusedTools';
+import { mapUsageHeatmap } from '@/utils/mapUsageHeatMap';
 import { mapUsagePatterns } from '@/utils/mapUsagePatterns';
 import { mapUsageRanking } from '@/utils/mapUsageRanking';
 import { mapUserAdoption } from '@/utils/mapUserAdoption';
@@ -68,6 +69,7 @@ const AnalyticsPage = () => {
   const unusedToolsData = mapUnusedTools(tools);
   const roiMetrics = mapRoiMetrics(tools);
   const usagePatternData = mapUsagePatterns(userTools);
+  const usageHeatmapData = mapUsageHeatmap(userTools);
 
   return (
     <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
@@ -98,6 +100,7 @@ const AnalyticsPage = () => {
         unusedTools={unusedToolsData}
         roiMetrics={roiMetrics}
         usagePatterns={usagePatternData}
+        usageHeatmap={usageHeatmapData}
       />
     </main>
   );
