@@ -6,12 +6,14 @@ import MonthlySpendEvolutionChart from '@/components/ui/analytics/charts/Monthly
 import TopExpensiveToolsChart from '@/components/ui/analytics/charts/TopExpensiveToolsChart';
 import UsageRankingChart from '@/components/ui/analytics/charts/UsageRankingChart';
 import UserAdoptionChart from '@/components/ui/analytics/charts/UserAdoptionChart';
+import InsightsDashboard from '@/components/ui/analytics/insights/InsightsDashboard';
 import PageHeader from '@/components/ui/PageHeader';
 import { useAnalytics } from '@/hooks/analytics/useGetAnalytics';
 import { useGetAllDepartments } from '@/hooks/departments/useDepartments';
 import { useGetAll } from '@/hooks/tools/useTools';
 import { useGetAllUsers } from '@/hooks/users/useUsers';
 import { mapBudgetComparaison } from '@/utils/mapBudgetComparaison';
+import { mapCostOptimizationAlerts } from '@/utils/mapCostOptimizationAlerts';
 import { mapDepartmentActivity } from '@/utils/mapDepartmentActivity';
 import { mapDepartmentCost } from '@/utils/mapDepartmentCosts';
 import { mapGrowthTrends } from '@/utils/mapGrowthTrends';
@@ -55,6 +57,7 @@ const AnalyticsPage = () => {
   const usageRankingData = mapUsageRanking(tools);
   const departmentsActivityData = mapDepartmentActivity(users, departments);
   const growthTrendsData = mapGrowthTrends(tools);
+  const costOptimizationsData = mapCostOptimizationAlerts(tools);
 
   return (
     <main className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col gap-6 sm:gap-8">
@@ -80,6 +83,7 @@ const AnalyticsPage = () => {
       <UsageRankingChart data={usageRankingData} />
       <DepartmentActivityChart data={departmentsActivityData} />
       <GrowthTrendsChart data={growthTrendsData} />
+      <InsightsDashboard costAlerts={costOptimizationsData} />
     </main>
   );
 };
